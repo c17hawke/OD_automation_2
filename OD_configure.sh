@@ -16,6 +16,8 @@ echo [$(date)]: "convert protos to protobuff"
 protoc object_detection/protos/*.proto --python_out=.
 echo [$(date)]: "copy setup to research dir"
 cp object_detection/packages/tf2/setup.py .
+echo [$(date)]: "upgrade pip"
+pip install --upgrade pip --user
 echo [$(date)]: "install object_detection api"
 python -m pip install .
 echo [$(date)]: "Testing our installation"
@@ -58,7 +60,7 @@ rm README.dataset.txt README.roboflow.txt
 echo [$(date)]: "mv train dir to images"
 mv train workspace/training_demo/images
 echo [$(date)]: "mv test dir to images"
-mv test workspace/training_demo/images
+mv "test" workspace/training_demo/images
 echo [$(date)]: "add train to .gitignore"
 echo "workspace/training_demo/images/train/*" >> .gitignore
 echo [$(date)]: "add test to .gitignore"
