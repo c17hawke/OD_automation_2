@@ -70,10 +70,10 @@ python generate_tfrecord.py -x images/train -l annotations/label_map.pbtxt -o an
 echo [$(date)]: "generate test tfrecord"
 python generate_tfrecord.py -x images/test -l annotations/label_map.pbtxt -o annotations/test.record
 echo [$(date)]: "add misc files to .gitignore"
-echo "*.record" > ../../.gitignore
-echo "*.checkpoint" > ../../.gitignore
-echo "*.pb" > ../../.gitignore
-echo "variable*" > ../../.gitignore
+echo "*.record" >> ../../.gitignore
+echo "*.checkpoint" >> ../../.gitignore
+echo "*.pb" >> ../../.gitignore
+echo "variable*" >> ../../.gitignore
 echo [$(date)]: "cd to pre-trained-models"
 cd pre-trained-models/
 echo [$(date)]: "curl ssd_resnet50_v1_fpn_640x640_coco17_tpu-8 model"
@@ -84,7 +84,6 @@ echo [$(date)]: "untar gz file"
 tar -xzf ssd_resnet50_v1_fpn_640x640_coco17_tpu-8.tar.gz
 echo [$(date)]: "END"
 cd $__MY_ROOT__
-echo [$(date)]: "END"
 # echo [$(date)]: "START"
 # echo [$(date)]: "START"
 # echo [$(date)]: "END"
