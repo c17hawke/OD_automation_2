@@ -128,3 +128,12 @@ dmypy.json
 # Pyre type checker
 .pyre/
 *.zip
+test.log.txt
+TensorFlow/models
+workspace/training_demo/images/train/*
+workspace/training_demo/images/test/*
+*.record
+*.checkpoint
+*.pb
+variable*
+ssd_resnet50_v1_fpn_640x640_coco17_tpu-8.tar.gz

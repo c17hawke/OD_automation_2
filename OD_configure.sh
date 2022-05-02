@@ -1,7 +1,8 @@
 __MY_ROOT__=`pwd`
-echo   "test.log.txt" >> .gitignore
+echo [$(date)]: "Started executing: "$BASH_SOURCE >> $__MY_ROOT__/test.log.txt
 echo [$(date)]: "START" >> $__MY_ROOT__/test.log.txt
-echo $__MY_ROOT__
+echo [$(date)]: "add test.log.txt to gitignore" >> $__MY_ROOT__/test.log.txt
+echo "test.log.txt" >> .gitignore
 echo [$(date)]: "Make sure you have installed protobuff" >> $__MY_ROOT__/test.log.txt
 echo [$(date)]: "Create TensorFlow dir and cd to it" >> $__MY_ROOT__/test.log.txt
 mkdir TensorFlow && cd TensorFlow
@@ -223,7 +224,7 @@ echo 'model {
   }
 }
 train_config {
-  batch_size: 8
+  batch_size: 4
   data_augmentation_options {
     random_horizontal_flip {
     }
@@ -287,4 +288,5 @@ echo [$(date)]: "Start Training.." >> $__MY_ROOT__/test.log.txt
 python model_main_tf2.py --model_dir=models/my_ssd_resnet50_v1_fpn --pipeline_config_path=models/my_ssd_resnet50_v1_fpn/pipeline.config
 echo [$(date)]: "copy model exporter to training_demo dir" >> $__MY_ROOT__/test.log.txt
 cp ../../TensorFlow/models/research/object_detection/exporter_main_v2.py .
+echo [$(date)]: "Execution complete for: "$BASH_SOURCE >> $__MY_ROOT__/test.log.txt
 echo [$(date)]: ">>>>>>>>> END <<<<<<<<<" >> $__MY_ROOT__/test.log.txt
