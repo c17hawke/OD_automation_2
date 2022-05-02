@@ -1,38 +1,39 @@
-echo [$(date)]: "START"
 __MY_ROOT__=`pwd`
+echo   "test.log.txt" >> .gitignore
+echo [$(date)]: "START" >> $__MY_ROOT__/test.log.txt
 echo $__MY_ROOT__
-echo [$(date)]: "Make sure you have installed protobuff"
-echo [$(date)]: "Create TensorFlow dir and cd to it"
+echo [$(date)]: "Make sure you have installed protobuff" >> $__MY_ROOT__/test.log.txt
+echo [$(date)]: "Create TensorFlow dir and cd to it" >> $__MY_ROOT__/test.log.txt
 mkdir TensorFlow && cd TensorFlow
-echo [$(date)]: "clone TensorFlow/models repo"
+echo [$(date)]: "clone TensorFlow/models repo" >> $__MY_ROOT__/test.log.txt
 git clone https://github.com/tensorflow/models.git
-echo [$(date)]: "remove .git of models toi avoid conflict"
+echo [$(date)]: "remove .git of models toi avoid conflict" >> $__MY_ROOT__/test.log.txt
 rm -rf models/.git
-echo [$(date)]: "add TensorFlow dir to .gitignore"
+echo [$(date)]: "add TensorFlow dir to .gitignore" >> $__MY_ROOT__/test.log.txt
 echo "TensorFlow/models" >> ../.gitignore
-echo [$(date)]: "cd to research dir"
+echo [$(date)]: "cd to research dir" >> $__MY_ROOT__/test.log.txt
 cd ./models/research
-echo [$(date)]: "convert protos to protobuff"
+echo [$(date)]: "convert protos to protobuff" >> $__MY_ROOT__/test.log.txt
 protoc object_detection/protos/*.proto --python_out=.
-echo [$(date)]: "copy setup to research dir"
+echo [$(date)]: "copy setup to research dir" >> $__MY_ROOT__/test.log.txt
 cp object_detection/packages/tf2/setup.py .
-echo [$(date)]: "upgrade pip"
+echo [$(date)]: "upgrade pip" >> $__MY_ROOT__/test.log.txt
 pip install --upgrade pip --user
-echo [$(date)]: "install object_detection api"
+echo [$(date)]: "install object_detection api" >> $__MY_ROOT__/test.log.txt
 python -m pip install .
-echo [$(date)]: "Testing our installation"
+echo [$(date)]: "Testing our installation" >> $__MY_ROOT__/test.log.txt
 python object_detection/builders/model_builder_tf2_test.py
-echo [$(date)]: "Change to ROOT"
+echo [$(date)]: "Change to ROOT" >> $__MY_ROOT__/test.log.txt
 cd $__MY_ROOT__
 # -----------------------------------
-echo [$(date)]: "START workspace"
-echo [$(date)]: "create workspace training demo"
+echo [$(date)]: "START workspace" >> $__MY_ROOT__/test.log.txt
+echo [$(date)]: "create workspace training demo" >> $__MY_ROOT__/test.log.txt
 mkdir -p workspace/training_demo
-echo [$(date)]: "cd to workspace/training_demo"
+echo [$(date)]: "cd to workspace/training_demo" >> $__MY_ROOT__/test.log.txt
 cd workspace/training_demo
-echo [$(date)]: "create workspace"
+echo [$(date)]: "create workspace" >> $__MY_ROOT__/test.log.txt
 mkdir -p annotations exported-models models/my_ssd_resnet50_v1_fpn pre-trained-models images
-echo [$(date)]: "create label map in annotations dir with classes"
+echo [$(date)]: "create label map in annotations dir with classes" >> $__MY_ROOT__/test.log.txt
 echo "item {
     id: 1
     name: 'helmet'
@@ -45,53 +46,53 @@ item {
     id: 3
     name: 'person'
 }" > annotations/label_map.pbtxt
-echo [$(date)]: "curl tfrecord converter in the root of workspace/training_demo"
+echo [$(date)]: "curl tfrecord converter in the root of workspace/training_demo" >> $__MY_ROOT__/test.log.txt
 curl https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/_downloads/da4babe668a8afb093cc7776d7e630f3/generate_tfrecord.py > generate_tfrecord.py
-echo [$(date)]: "use labelImg to do the annotations"
-echo [$(date)]: "Change to ROOT"
+echo [$(date)]: "use labelImg to do the annotations" >> $__MY_ROOT__/test.log.txt
+echo [$(date)]: "Change to ROOT" >> $__MY_ROOT__/test.log.txt
 cd $__MY_ROOT__
 # --------------------------------
 
-echo [$(date)]: "START"
-echo [$(date)]: "unzip dataset"
+echo [$(date)]: "START" >> $__MY_ROOT__/test.log.txt
+echo [$(date)]: "unzip dataset" >> $__MY_ROOT__/test.log.txt
 unzip 'Hard Hat Workers.v2-raw.voc.zip'
-echo [$(date)]: "remove unwanted txt files"
+echo [$(date)]: "remove unwanted txt files" >> $__MY_ROOT__/test.log.txt
 rm README.dataset.txt README.roboflow.txt
-echo [$(date)]: "mv train dir to images"
+echo [$(date)]: "mv train dir to images" >> $__MY_ROOT__/test.log.txt
 mv train workspace/training_demo/images
-echo [$(date)]: "mv test dir to images"
+echo [$(date)]: "mv test dir to images" >> $__MY_ROOT__/test.log.txt
 mv "test" workspace/training_demo/images
-echo [$(date)]: "add train to .gitignore"
+echo [$(date)]: "add train to .gitignore" >> $__MY_ROOT__/test.log.txt
 echo "workspace/training_demo/images/train/*" >> .gitignore
-echo [$(date)]: "add test to .gitignore"
+echo [$(date)]: "add test to .gitignore" >> $__MY_ROOT__/test.log.txt
 echo "workspace/training_demo/images/test/*" >> .gitignore
-echo [$(date)]: "cd to training_demo dir"
+echo [$(date)]: "cd to training_demo dir" >> $__MY_ROOT__/test.log.txt
 cd workspace/training_demo
-echo [$(date)]: "generate train tfrecord"
+echo [$(date)]: "generate train tfrecord" >> $__MY_ROOT__/test.log.txt
 python generate_tfrecord.py -x images/train -l annotations/label_map.pbtxt -o annotations/train.record
-echo [$(date)]: "generate test tfrecord"
+echo [$(date)]: "generate test tfrecord" >> $__MY_ROOT__/test.log.txt
 python generate_tfrecord.py -x images/test -l annotations/label_map.pbtxt -o annotations/test.record
-echo [$(date)]: "add misc files to .gitignore"
+echo [$(date)]: "add misc files to .gitignore" >> $__MY_ROOT__/test.log.txt
 echo "*.record" >> ../../.gitignore
 echo "*.checkpoint" >> ../../.gitignore
 echo "*.pb" >> ../../.gitignore
 echo "variable*" >> ../../.gitignore
-echo [$(date)]: "cd to pre-trained-models"
+echo [$(date)]: "cd to pre-trained-models" >> $__MY_ROOT__/test.log.txt
 cd pre-trained-models/
-echo [$(date)]: "curl ssd_resnet50_v1_fpn_640x640_coco17_tpu-8 model"
+echo [$(date)]: "curl ssd_resnet50_v1_fpn_640x640_coco17_tpu-8 model" >> $__MY_ROOT__/test.log.txt
 curl http://download.tensorflow.org/models/object_detection/tf2/20200711/ssd_resnet50_v1_fpn_640x640_coco17_tpu-8.tar.gz > ssd_resnet50_v1_fpn_640x640_coco17_tpu-8.tar.gz 
-echo [$(date)]: "add .gz file to .gitignore"
+echo [$(date)]: "add .gz file to .gitignore" >> $__MY_ROOT__/test.log.txt
 echo "ssd_resnet50_v1_fpn_640x640_coco17_tpu-8.tar.gz" >> ../../../.gitignore
-echo [$(date)]: "untar gz file"
+echo [$(date)]: "untar gz file" >> $__MY_ROOT__/test.log.txt
 tar -xzf ssd_resnet50_v1_fpn_640x640_coco17_tpu-8.tar.gz
-echo [$(date)]: "Change to ROOT"
+echo [$(date)]: "Change to ROOT" >> $__MY_ROOT__/test.log.txt
 cd $__MY_ROOT__
 
-echo [$(date)]: "Change to training_demo"
+echo [$(date)]: "Change to training_demo" >> $__MY_ROOT__/test.log.txt
 cd workspace/training_demo
-echo [$(date)]: "Create models/my_ssd_resnet50_v1_fpn"
+echo [$(date)]: "Create models/my_ssd_resnet50_v1_fpn" >> $__MY_ROOT__/test.log.txt
 mkdir -p models/my_ssd_resnet50_v1_fpn
-echo [$(date)]: "echo config file"
+echo [$(date)]: "echo config file" >> $__MY_ROOT__/test.log.txt
 echo 'model {
   ssd {
     num_classes: 3
@@ -280,10 +281,10 @@ eval_input_reader {
     input_path: "annotations/test.record"
   }
 }' > models/my_ssd_resnet50_v1_fpn/pipeline.config
-echo [$(date)]: "cp training file to training_demo dir"
+echo [$(date)]: "cp training file to training_demo dir" >> $__MY_ROOT__/test.log.txt
 cp ../../TensorFlow/models/research/object_detection/model_main_tf2.py .
-echo [$(date)]: "Start Training.."
+echo [$(date)]: "Start Training.." >> $__MY_ROOT__/test.log.txt
 python model_main_tf2.py --model_dir=models/my_ssd_resnet50_v1_fpn --pipeline_config_path=models/my_ssd_resnet50_v1_fpn/pipeline.config
-echo [$(date)]: "copy model exporter to training_demo dir"
+echo [$(date)]: "copy model exporter to training_demo dir" >> $__MY_ROOT__/test.log.txt
 cp ../../TensorFlow/models/research/object_detection/exporter_main_v2.py .
-echo [$(date)]: "END"
+echo [$(date)]: ">>>>>>>>> END <<<<<<<<<" >> $__MY_ROOT__/test.log.txt
