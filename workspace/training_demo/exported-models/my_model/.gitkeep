@@ -1,0 +1,4 @@
+exported models will be present here
+with dirs - 
+checkpoint: will contain checkpoint
+save_model: will contain save_model.pb
